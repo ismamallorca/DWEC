@@ -11,7 +11,7 @@ function fibonacci(num) {
 const nTerms = prompt('Introduce un número.');
 
 if (nTerms <= 0) {
-    console.log('Introduce un número positivo.');
+    prompt('Introduce un número positivo.');
 }
 else {
     for (let i = 0; i < nTerms; i++) {
