@@ -12,5 +12,5 @@ arrayPalabras.sort((a, b) => (a.localeCompare(b, 'es')));
 mapa = mapaRepeticiones(arrayPalabras);
 
 for([palabra, cont] of mapa) {
-    document.write(`<p>${palabra}, ${cont} repeticiones`);
+    document.write(`<p>${palabra}: ${cont} repeticiones`);
 }
