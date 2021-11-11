@@ -1,20 +1,26 @@
-
-function fibonacci(num) {
-    if (num < 2) {
-        return num;
-    }
+function fibonacci(x) {
+    if (x == 0) return 0;
     else {
-        return fibonacci(num - 1) + fibonacci(num - 2);
+        if (x == 1) return 1;
+        else return fibonacci (x - 1) + fibonacci (x - 2);
     }
 }
 
-const nTerms = prompt('Introduce un número.');
+function fibonacci2(x) {
+    let acumulador1 = 0;
+    let acumulador2 = 1;
+    let resultado = 1;
 
-if (nTerms <= 0) {
-    prompt('Introduce un número positivo.');
-}
-else {
-    for (let i = 0; i < nTerms; i++) {
-        console.log(fibonacci(i));
+    if ( x == 0) return 0;
+    else {
+        if (x==1) return 1;
+        else {
+            for (let i=2;i<=x;i++) {
+                [acumulador1,acumulador2] = [acumulador2,resultado];
+                resultado = acumulador1 + acumulador2;
+            }
+            
+        return resultado;
+        }
     }
 }
