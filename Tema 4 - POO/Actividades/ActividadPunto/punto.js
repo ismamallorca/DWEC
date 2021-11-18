@@ -1,3 +1,5 @@
-function Punto(coordX, coordY) {
-
+class Punto {
+    constructor(CoordX, CoordY) {
+        
+    }
 }
