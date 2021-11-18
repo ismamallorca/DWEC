@@ -1,0 +1,3 @@
+function Punto(coordX, coordY) {
+    
+}
