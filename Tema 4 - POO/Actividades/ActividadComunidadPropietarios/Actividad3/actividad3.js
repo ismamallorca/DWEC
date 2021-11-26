@@ -83,67 +83,8 @@ function Edificio(tipoVia, nombreVia, numeroEdificio, codigoPostal) {
     }
 }
 
-// Creamos la variable edificio2 guardando textualmente el archivo JSON
-let edificio2 = `{
-    "tipoVia":"Calle",
-    "nombreVia":"García Prieto",
-    "numeroEdificio": "58A",
-    "codigoPostal": "07010",
-    "mapaPropietariosEdificio": {
-        "A": {
-            "1A": ["José Antonio López"],
-            "2A": ["Luisa Martínez"],
-            "3A": ["Marta Castellón", "José Montero"]
-        },
-        "B": {
-            "1B": [],
-            "2B": ["Antonio Pereira"],
-            "3B": []
-        }
-    }
-}`;
-
-// Convertimos el archivo JSON a un objeto y creamos un nuevo Edificio
-edificio2 = JSON.parse(edificio2);
-let nuevo_Edificio = new Edificio(edificio2["tipoVia"], edificio2["nombreVia"], edificio2["numeroEdificio"], edificio2["codigoPostal"]);
-
-// Recorremos el mapaPropietariosEdificio del objeto edificio2 (JSON) y añadimos la planta
-for (let i in edificio2["mapaPropietariosEdificio"]) {
-    nuevo_Edificio.añadirPlanta(i);
-
-    // Recorremos de nuevo el JSON únicamente las plantas y añadimos la puerta para asignarla a su posición
-    for (let j in edificio2["mapaPropietariosEdificio"][i]) {
-        nuevo_Edificio.añadirPuerta(i, j);
-
-        // Al igual que el paso interior, recorremos el JSON en busca de los propietarios
-        // para asignarlos a su planta y puerta correspondiente
-        for (let k in edificio2["mapaPropietariosEdificio"][i][j]){
-            nuevo_Edificio.añadirPropietario(edificio2["mapaPropietariosEdificio"][i][j][k], i, j);
-        }
-    }
+function solicitar() {
+    let correcto = false;
+    let tipoVia = prompt("Introduce el tipo de vía que desees: ");
+    let nombreVia
 }
-
-let div = document.getElementById("resul");
-
-let espacios = nuevo_Edificio.imprimirTodosPropietarios().split("\n").join("<br>");
-let tabulaciones = espacios.split("\t").join("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
-
-// ----------------------- MOSTRAR DATOS POR PANTALLA -------------------------
-div.innerHTML += "<p>" + nuevo_Edificio.imprimirTipoVia() + "</p>";
-div.innerHTML += "<p>" + nuevo_Edificio.imprimirNombreVia() + "</p>";
-div.innerHTML += "<p>" + nuevo_Edificio.imprimirNumeroEdificio() + "</p>";
-div.innerHTML += "<p>" + nuevo_Edificio.imprimirCodigoPostal() + "</p>";
-div.innerHTML += "<p>" + tabulaciones + "</p>";
-
-// Mostramos un fondo aleatorio cada vez que se muestren los datos
-for(i = 0; i < 2000; i++) {
-    var a = Math.floor(Math.random() * 881);
-    var b = Math.floor(Math.random() * 1000);
-    var color = "#";
-
-    for(j = 0; j < 6; j++) {
-        color += Math.floor(Math.random() * 9);
-    }
-}
-
-document.body.style.background = color;
