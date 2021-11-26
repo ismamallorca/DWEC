@@ -1,93 +1,104 @@
-function Edificio(tipoVia, nombreVia, numeroEdificio, codigoPostal) {
-    this.tipoVia = tipoVia;
-    this.nombreVia = nombreVia;
-    this.numeroEdificio = numeroEdificio;
-    this.codigoPostal = codigoPostal;
-    this.mapaPropietariosEdificio = new Map();
-}
+function Edificio(tipoVia, nombreVia, numeroEdificio, codigoPostal) {  
+    this.tipoVia = tipoVia
+    this.nombreVia = nombreVia
+    this.numeroEdificio = numeroEdificio
+    this.codigoPostal = codigoPostal
+    this.mapaPropietariosEdificio = new Map()
 
-// Función para generar un mapa de la planta y después de añadirla, se coloca directamente al mapa
-Edificio.prototype.añadirPlanta = function (numeroPlanta) {
-    let map_Planta = new Map();
-    this.mapaPropietariosEdificio.set(numeroPlanta, map_Planta);
-}
-
-// Función donde se añade una puerta recogiendo el valor del numeroPlanta y estableciéndola en un array
-Edificio.prototype.añadirPuerta = function (numeroPlanta, numeroPuerta) {
-    this.mapaPropietariosEdificio.get(numeroPlanta).set(numeroPuerta, []);
-}
-
-// Función donde se añade un propietario recogiendo el valor del número de la planta y de la puerta. Después se "pushea" al array.
-Edificio.prototype.añadirPropietario = function(nombrePropietario,numeroPlanta,numeroPuerta){
-    this.mapaPropiertariosEdificio.get(numeroPlanta).get(numeroPuerta).push(nombrePropietario);
-}
-
-Edificio.prototype.imprimirTodosPropietarios = function () {
-    let resul = "";
-    let llavePlanta;
-    let llavePuerta;
-
-    for (let i = 0; i < this.mapaPropietariosEdificio.length; i++) {
-        // Creamos una variable planta con el método next donde regresará el objeto
-        let planta = llavePlanta.next().value;
-        // Con este método, obtenemos del mapaPropietariosEdificio el valor de la planta para luego mostrarla en pantalla
-        llavePuerta = this.mapaPropietariosEdificio.get(planta).keys();
-        resul += "Planta: " + planta + "\n";
-
-        for (let j = 0; j < this.mapaPropietariosEdificio.get(planta).lenght; j++) {
-            let puerta = llavePuerta.next().value;
-            resul += "\tPuerta: " + puerta + "\n";
-
-            for (let k = 0; k < this.mapaPropietariosEdificio.get(planta).get(puerta).length; k++) {
-                let propietario = this.mapaPropietariosEdificio.get(planta).get(puerta);
-                resul += "\t\t" + propietario[k] + "\n";
-            }
+    // Comprueba que no exista el numero de planta e inserta
+    this.agregarPlanta = function(numeroPlanta) {
+        if (!this.mapaPropietariosEdificio.has(numeroPlanta)) {
+            this.mapaPropietariosEdificio.set(numeroPlanta, new Map())
         }
     }
-    return resul;
-}
 
-Edificio.prototype.imprimirNombreVia = function() {
-    return "Nombre de la vía: " + this.nombreVia;
-}
+    // Comprueba que no exista el numero de puerta e inserta
+    this.agregarPuerta = function(numeroPlanta, numeroPuerta) {
+        let planta = this.mapaPropietariosEdificio.get(numeroPlanta)
+        if (!planta.has(numeroPuerta)) {
+            planta.set(numeroPuerta, [])
+        }
+    }
 
-Edificio.prototype.imprimirTipoVia = function() {
-    return "Tipo de vía: " + this.tipoVia;
-}
+    // Inserta el propietario en la planta y el numero de puerta correspondiente, permite anadir mas de un propietario
+    this.agregarPropietario = function(nombrePropietario, numeroPlanta, numeroPuerta) {  
+        let planta = this.mapaPropietariosEdificio.get(numeroPlanta)
+        let puerta = planta.get(numeroPuerta)
+        puerta.push(nombrePropietario)
+    }
 
-Edificio.prototype.imprimirNumeroEdificio = function() {
-    return "Número del edificio: " + this.numeroEdificio;
-}
+    this.imprimirTodosPropietarios = function() {
+        // Creamos una variable con las entidades de mapaPropietariosEdificio y preparamos str para ir guardando todos los resultados
+        let entries = this.mapaPropietariosEdificio.entries()
+        let str = ""
 
-Edificio.prototype.imprimirCodigoPostal = function() {
-    return "Código postal: " + this.codigoPostal;
-}
+        // Recorremos el mapa 
+        for (let i = 0; i < this.mapaPropietariosEdificio.size; i++) {
+            // Guardamos en una variable e asignamos la key del mapa, por eso lo del value[0], el [1] es el valor
+            let planta = entries.next().value[0]
+            str += "Planta: " + planta + "\n"
 
-Edificio.prototype.modificarNombreVia = function(nombreVia) {
-    this.nombreVia = nombreVia;
-}
+            // Guardamos la key del "mapa2" Ej: 1->2->miguel, guardariamos 2
+            let entries2 = this.mapaPropietariosEdificio.get(planta)
+            let key = entries2.keys()
 
-Edificio.prototype.modificarTipoVia = function(tipoVia) {
-    this.tipoVia = tipoVia;
-}
+            // Recorremos las key del "mapa2" y las guardamos
+            for (let j = 0; j < entries2.size; j++) {
+                let puerta =  key.next().value
+                str += "\tPuerta: " + puerta + "\n"
+                
+                // Recorremos la array de propietarios y la guardamos 
+                entries2.get(puerta).forEach(propietario => {
+                    str += "\t\t" + propietario + "\n\n"
+                }); 
+            }
+        }
 
-Edificio.prototype.modificarNumeroEdificio = function(numeroEdificio) {
-    this.numeroEdificio = numeroEdificio;
-}
+        return str
+    }
 
-Edificio.prototype.modificarCodigoPostal = function(codigoPostal) {
-    this.codigoPostal = codigoPostal;
+    this.imprimirCodigoPostal = function() {
+        return "Código Postal(CP): " + this.codigoPostal
+    }
+
+    this.imprimirNombreVia = function () {  
+        return "Nombre de la vía: " + this.nombreVia
+    }
+
+    this.imprimirNumeroEdificio = function() {  
+        return "Número del edificio: " + this.numeroEdificio
+    }
+
+    this.imprimirTipoVia = function() {  
+        return "Tipo de via: " + this.tipoVia
+    }
+
+    this.modificarCodigoPostal = function(nuevoCodigoPostal) {  
+        this.codigoPostal = nuevoCodigoPostal
+    }
+
+    this.modificarNombreVia = function(nuevoNombreVia) {  
+        this.nombreVia = nuevoNombreVia
+    }
+
+    this.modificarNumeroEdificio = function(nuevoNumeroEdificio) {
+        this.numeroEdificio = nuevoNumeroEdificio
+    }
+
+    this.modificarTipoVia = function(nuevoTipoVia) {
+        this.tipoVia = nuevoTipoVia
+    }
 }
 
 const edificio1 = new Edificio('calle', 'marques de la fontsanta', 60, '07005');
-edificio1.añadirPlanta('1A');
-edificio1.añadirPlanta('1B');
-edificio1.añadirPuerta('1A','3');
-edificio1.añadirPuerta('1A','2');
-edificio1.añadirPuerta('1B','1');
-edificio1.añadirPropietario('Belén Laserna Belenguer','1A','3');
-edificio1.añadirPropietario('Pedro Jimenez Vázquez','1A','3');
-edificio1.añadirPropietario('Ana María Rodriguez Figuerola', '1A','2');
-edificio1.añadirPropietario('Miguel López López','1B','1');
+edificio1.agregarPlanta('1A');
+edificio1.agregarPlanta('1B');
+edificio1.agregarPuerta('1A','3');
+edificio1.agregarPuerta('1A','2');
+edificio1.agregarPuerta('1B','1');
+edificio1.agregarPropietario('Belén Laserna Belenguer','1A','3');
+edificio1.agregarPropietario('Pedro Jimenez Vázquez','1A','3');
+edificio1.agregarPropietario('Ana María Rodriguez Figuerola', '1A','2');
+edificio1.agregarPropietario('Miguel López López','1B','1');
 console.log(edificio1)
 console.log(edificio1.imprimirTodosPropietarios());
