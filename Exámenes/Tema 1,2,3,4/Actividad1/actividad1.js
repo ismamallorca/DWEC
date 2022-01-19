@@ -10,10 +10,10 @@
  * @returns {boolean} - Devuelve true si se cumple el patrón y false si no se cumple.
  */
 const comprobarPatrones = function (elementoAComprobar, tipoComprobacion) {
-    let patronNumeroRegistro = new RegExp('/./*');
-    let patronNombreCompleto = new RegExp('/./*');
-    let patronNumeroSS =  new RegExp('/./*');
-    let patronDireccion =  new RegExp('/./*');
+    let patronNumeroRegistro = /^[A-Z]{3}[0-9]{3}$/;
+    let patronNombreCompleto = /^[A-ZÁÉÍÓÚ][a-záéíóúü]+ [A-ZÁÉÍÓÚ]{1,2}\.$/;
+    let patronNumeroSS = /^[0-9]{1,9}$/;
+    let patronDireccion = /^(C\/|Av\.)[A-ZÁÉÍÓÚÇ][a-záéíóúü]+ ?[a-záéíóúü ]*, [0-9]+$/;
 
     let patrones = new Map([
         ['numeroRegistro', patronNumeroRegistro],
@@ -22,5 +22,5 @@ const comprobarPatrones = function (elementoAComprobar, tipoComprobacion) {
         ['direccion', patronDireccion]
     ]);
     
-    return patrones;
+    return patrones.get(tipoComprobacion).test(elementoAComprobar);
 }
