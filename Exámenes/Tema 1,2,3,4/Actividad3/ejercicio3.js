@@ -1,96 +1,116 @@
-function Paciente(numeroRegistro, nombreCompleto, numeroSS, direccion) {
-    this.numeroRegistro = numeroRegistro;
-    this.nombreCompleto = nombreCompleto;
-    this.numeroSS = numeroSS;
-    this.direccion = direccion;
+const Paciente = function (numeroRegistro, nombreCompleto, numeroSS, direccion) {
 
-    this.imprimirNumeroRegistro = function() {
-        return "Número de registro: " + this.numeroRegistro;
+    this.comprobarPatrones = function (elementoAComprobar, tipoComprobacion) {
+        let patronNumeroRegistro = /^[A-Z]{3}[0-9]{3}$/;
+        let patronNombreCompleto = /^[A-ZÁÉÍÓÚÇ][a-záéíóúü]+ [[A-ZÁÉÍÓÚÇ]{1,2}\.$/;
+        let patronNumeroSS = /^[0-9]{0,9}$/;
+        let patronDireccion = /^(C\/|Av\.)[A-ZÁÉÍÓÚÇ][a-záéíóúü]+ ?[a-záéíóúü ]*, [0-9]+$/;
+
+        let patrones = new Map([
+            ['numeroRegistro', patronNumeroRegistro],
+            ['nombre', patronNombreCompleto],
+            ['numeroSS', patronNumeroSS],
+            ['direccion', patronDireccion]
+        ]);
+
+        return patrones.get(tipoComprobacion).test(elementoAComprobar);
     }
 
-    this.imprimirNombreCompleto = function() {
-        return "Nombre completo: " + this.nombreCompleto;
+
+    // SETTERS del objeto
+    this.modificarNumeroRegistro = function (nuevoNumeroRegistro) {
+        if (this.comprobarPatrones(nuevoNumeroRegistro, 'numeroRegistro')) {
+            this.numeroRegistro = nuevoNumeroRegistro;
+        }
+
     }
 
-    this.imprimirNumeroSS = function() {
-        return "Número de la SS: " + this.numeroSS;
+    this.modificarNombreCompleto = function (nuevoNombreCompleto) {
+        if (this.comprobarPatrones(nuevoNombreCompleto, 'nombre')) {
+            this.nombreCompleto = nombreCompleto;
+        }
+
     }
 
-    this.imprimirDireccion = function() {
-        return "Dirección: " + this.direccion;
+    this.modificarNumeroSS = function (nuevoNumeroSS) {
+        if (this.comprobarPatrones(nuevoNumeroSS, 'numeroSS')) {
+            this.numeroSS = nuevoNumeroSS;
+        }
+
     }
 
-    this.modificarNumeroRegistro = function() {
-        this.numeroRegistro = nuevoNumeroRegistro;
+    this.modificarDireccion = function (nuevaDireccion) {
+        if (this.comprobarPatrones(nuevaDireccion, 'direccion')) {
+            this.direccion = nuevaDireccion;
+        }
     }
 
-    this.modificarNombreCompleto = function() {
-        this.nombreCompleto = nuevoNombreCompleto;
+
+    // GETTERS del objeto
+    this.imprimirNumeroRegistro = function () {
+        return numeroRegistro;
     }
 
-    this.modificarNumeroSS = function() {
-        this.numeroSS = nuevoNumeroSS;
+    this.imprimirNombrecompleto = function () {
+        return nombreCompleto;
     }
 
-    this.modificarDireccion = function() {
-        this.direccion = nuevaDireccion;
+    this.imprimirNumeroSS = function () {
+        return numeroSS;
+    }
+
+    this.imprimirDireccion = function () {
+        return direccion;
+    }
+
+    if (this.comprobarPatrones(numeroRegistro, 'numeroRegistro')) {
+        this.numeroRegistro = numeroRegistro;
+    } else {
+        this.numeroRegistro = "";
+    }
+
+    if (this.comprobarPatrones(nombreCompleto, 'nombre')) {
+        this.nombreCompleto = nombreCompleto;
+    } else {
+        this.nombreCompleto = "";
+    }
+
+    if (this.comprobarPatrones(numeroSS, 'numeroSS')) {
+        this.numeroSS = numeroSS;
+    } else {
+        this.numeroSS = "";
+    }
+
+    if (this.comprobarPatrones(direccion, 'direccion')) {
+        this.direccion = direccion;
+    } else {
+        this.direccion = "";
     }
 }
 
-let paciente2 = `{
-    "numeroRegistro":"AAA024",
-    "nombreCompleto":"Fernández M.",
-    "numeroSS":"321790059",
-    "direccion":"C/Recoletos, 50"
-}`;
+const registroPacientes = new Map([
+    [`AAA024`, `Fernández M. (321790059) -> C/Recoletos, 50`],
+    [`BCD827`, `Ruíz P. (100973253) -> C/Esquerdo izquierdo, 103`],
+    [`YUN835`, `Benítez E. (154811767) -> Av.Argentina, 5`]
+]);
 
-let paciente3 = `{
-    "numeroRegistro":"BCD827",
-    "nombreCompleto":"Ruiz P.",
-    "numeroSS":"100973253",
-    "direccion":"C/Esquerdo izquierdo, 103"
-}`;
-
-let paciente4 = `{
-    "numeroRegistro":"YUN835",
-    "nombreCompleto":"Benítez E.",
-    "numeroSS":"154811767",
-    "direccion":"Av. Argentina, 5"
-}`;
-
-// Convertimos cada JSON a un objeto y creamos un nuevo Paciente cada vez
-paciente2 = JSON.parse(paciente2);
-let nuevo_Paciente2 = new Paciente(paciente2["numeroRegistro"], paciente2["nombreCompleto"], paciente2["numeroSS"], paciente2["direccion"]);
-
-paciente3 = JSON.parse(paciente3);
-let nuevo_Paciente3 = new Paciente(paciente3["numeroRegistro"], paciente3["nombreCompleto"], paciente3["numeroSS"], paciente3["direccion"]);
-
-paciente4 = JSON.parse(paciente4);
-let nuevo_Paciente4 = new Paciente(paciente4["numeroRegistro"], paciente4["nombreCompleto"], paciente4["numeroSS"], paciente4["direccion"]);
-
-let div = document.getElementById("resultado");
-
-// --------------------------------- MOSTRAR DATOS POR PANTALLA --------------------------
-// ------------- PACIENTE 2 ---------------
-div.innerHTML += "<p>" + nuevo_Paciente2.imprimirNumeroRegistro() + "</p>";
-div.innerHTML += "<p>" + nuevo_Paciente2.imprimirNombreCompleto() + "</p>";
-div.innerHTML += "<p>" + nuevo_Paciente2.imprimirNumeroSS() + "</p>";
-div.innerHTML += "<p>" + nuevo_Paciente2.imprimirDireccion() + "</p>";
-
-// ------------- PACIENTE 3 ----------------
-div.innerHTML += "<p>" + nuevo_Paciente3.imprimirNumeroRegistro() + "</p>";
-div.innerHTML += "<p>" + nuevo_Paciente3.imprimirNombreCompleto() + "</p>";
-div.innerHTML += "<p>" + nuevo_Paciente3.imprimirNumeroSS() + "</p>";
-div.innerHTML += "<p>" + nuevo_Paciente3.imprimirDireccion() + "</p>";
-
-// ------------- PACIENTE 4 ----------------ç
-div.innerHTML += "<p>" + nuevo_Paciente4.imprimirNumeroRegistro() + "</p>";
-div.innerHTML += "<p>" + nuevo_Paciente4.imprimirNombreCompleto() + "</p>";
-div.innerHTML += "<p>" + nuevo_Paciente4.imprimirNumeroSS() + "</p>";
-div.innerHTML += "<p>" + nuevo_Paciente4.imprimirDireccion() + "</p>";
 var numeroRegistroPaciente;
 var nombrePaciente;
 var numeroSSPaciente;
 var direccionPaciente;
 const agendaPacientes = new Map();
 var contadorPacientes = 0;
+
+let registro = registroPacientes.entries()
+
+for (let [numeroRegistro, datos] of registroPacientes) {
+    contadorPacientes++;
+    numeroRegistroPaciente = numeroRegistro;
+    nombrePaciente = datos.split(' (')[0];
+    numeroSSPaciente = datos.split('(')[1].split(')')[0];
+    direccionPaciente = datos.split('(')[1].split('-> ')[1];
+
+    agendaPacientes.set(contadorPacientes, new Paciente(numeroRegistroPaciente, nombrePaciente, numeroSSPaciente, direccionPaciente));
+}
+
+console.log(agendaPacientes);
