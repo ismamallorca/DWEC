@@ -1,12 +1,11 @@
+// Solución
+let telefono = /^\(\+[0-9]{1,3}\)[0-9]{9}$/;
+let hora  = /^(([0-2][0-3])|([0-1][0-9])):[0-5][0-9])$/;
+let email = /^[^áàéèíìïóòúùü\s\(\)<>@,;:\"\[\]ç%&]{1,64}@[^áàéèíìïóòúùü\s\(\)<>@,;:\"\[\]ç%&]{1,251}.(com|es|net)$/;
+let web = /^http:\/\/www\.[^\.]+\..{3}$/;
 
-    let telefono = `(\+34|0034|34)?[ -]*(6|7)[ -]*([0-9][ -]*){8}`;
-    let hora = `^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$`;
-    let email = `/^(?:[^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*|"[^\n"]+")@(?:[^<>()[\].,;:\s@"]+\.)+[^<>()[\]\.,;:\s@"]{2,63}$/i`;
-    let web = `^([a-z0-9_-]+\.){1,2}[a-z]{2,6}(\.[a-z]{2,6})$`;
 
-
-// TEST PARA COMPROBAR LAS EXPRESIONES REGULARES
-
+/*
 let testTelefono1 = telefono.test('(+34)659888475'); // true
 let testTelefono2 = telefono.test('(+234)659888475'); // true
 let testTelefono3 = telefono.test('+34659888475'); // false
@@ -14,47 +13,43 @@ let testTelefono4 = telefono.test('659887410'); // false
 let testTelefono5 = telefono.test('(35)659887410'); // false
 let testTelefono6 = telefono.test('()659887410'); // false
 let testTelefono7 = telefono.test('(+0)659887410'); // true
-
-console.log(testTelefono1);
+console.log(testtelefono1);
 console.log(testTelefono2);
 console.log(testTelefono3);
 console.log(testTelefono4);
 console.log(testTelefono5);
 console.log(testTelefono6);
 console.log(testTelefono7);
+*/
 
-
+/*
 let testHora1 = hora.test('00:00'); // true
 let testHora2 = hora.test('24:60'); // false
 let testHora3 = hora.test('29:00'); // false
 let testHora4 = hora.test('23:60'); // false
 let testHora5 = hora.test('19:30'); // true
-
 console.log(testHora1);
 console.log(testHora2); 
 console.log(testHora3); 
 console.log(testHora4);
 console.log(testHora5);
+*/
 
-
-
+/*
 let testEmail1 = email.test('a@a'); // false
 let testEmail2 = email.test('a@a.com'); // true
 let testEmail3 = email.test('a@a.a.com'); // true
 let testEmail4 = email.test('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@a.a.com'); // false
 let testEmail5 = email.test('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@a.a.com'); // true
 let testEmail6 = email.test('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@' +
-    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' +
-    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' +
-    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.com'); // true
+'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' +
+'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' +
+'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.com'); // true
 let testEmail7 = email.test('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@' +
-    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' +
-    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' +
-    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.com'); // false
+'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' +
+'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' +
+'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.com'); // false
 let testEmail8 = email.test('a@a.a.comz'); // false
-
-
-
 console.log(testEmail1);
 console.log(testEmail2);
 console.log(testEmail3);
@@ -63,7 +58,7 @@ console.log(testEmail5);
 console.log(testEmail6);
 console.log(testEmail7);
 console.log(testEmail7);
-
+*/
 
 
 
