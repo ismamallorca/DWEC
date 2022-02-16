@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUEGO MINILOTERIA</title>
+    <link rel="stylesheet" href="estilos.css">
+    <script src="miniloteria.js"></script>
+</head>
+
+<body>
+
+    <body>
+        <h1>Miniloteria</h1>
+        <div class="flex-container">
+            <div id="div1" class="flex-items">
+                <p>NUM 1</p>
+            </div>
+            <div id="div2" class="flex-items">
+                <p>NUM 2</p>
+            </div>
+            <div id="div3" class="flex-items">
+                <p>NUM 3</p>
+            </div>
+        </div>
+        <div class="buttons">
+            <button onclick="generarDecimo()">Generar Decimos</button>
+            <button disabled onclick="realizarSorteo()">Realizar sorteo</button>
+        </div>
+        <div class="flex-container">
+            <div id="div4" class="flex-items">
+                <p>DECIMOS</p>
+            </div>
+            <span id="numeroSorteo"></span>
+        </div>
+    </body>
+
+</html>
